@@ -2,5 +2,6 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "@rails/ujs"  // Import UJS
-// Import Bootstrap
-import "bootstrap"
+import "bootstrap" // Import Bootstrap
+import { Turbo } from "@hotwired/turbo-rails";
+Turbo.session.drive = true;  // Disable Turbo globally

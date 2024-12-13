@@ -1,43 +1,26 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: localhost  # Keep this for local development
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV['DB_USERNAME'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
 
 development:
   <<: *default
   database: task_management_system_development
-  username: <%= ENV["DB_USERNAME"] %>
-  password: <%= ENV["DB_PASSWORD"] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  host: localhost
 
 test:
   <<: *default
   database: task_management_system_test
-  username: <%= ENV["DB_USERNAME"] %>
-  password: <%= ENV["DB_PASSWORD"] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  host: localhost
 
 production:
-  primary: &primary_production
-    <<: *default
-    database: task_management_system_production
-    username: <%= ENV["DB_USERNAME"] %>
-    password: <%= ENV["DB_PASSWORD"] %>
-    host: <%= ENV["DATABASE_HOST"] %>  # <-- Use RDS endpoint in production
-    port: 5432  # Default port for PostgreSQL
-
-  cache:
-    <<: *primary_production
-    database: task_management_system_production_cache
-    migrations_paths: db/cache_migrate
-
-  queue:
-    <<: *primary_production
-    database: task_management_system_production_queue
-    migrations_paths: db/queue_migrate
-
-  cable:
-    <<: *primary_production
-    database: task_management_system_production_cable
-    migrations_paths: db/cable_migrate
+  <<: *default
+  database: task_management_system_production
+  host: task-management-system-production.c5jrui4evehn.us-east-1.rds.amazonaws.com
+  username: postgres
+  password: z!97g*t-DevJQu
+  port: 5432

@@ -3,6 +3,11 @@ class TasksController < ApplicationController
 
   def index
     @tasks = current_user.tasks.order(created_at: :asc)
+
+    # Apply priority filter if provided
+    if params[:priority].present?
+      @tasks = @tasks.where(priority: params[:priority])
+    end
   end
 
   def show
