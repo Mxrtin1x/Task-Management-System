@@ -2,25 +2,18 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV["DATABASE_USERNAME"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  host: <%= ENV["DATABASE_HOST"] %>
 
 development:
   <<: *default
-  database: task_management_system_development
-  username: <%= ENV['DB_USERNAME'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
-  host: localhost
+  database: <%= ENV["DATABASE_NAME"] %>_development
 
 test:
   <<: *default
-  database: task_management_system_test
-  username: <%= ENV['DB_USERNAME'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
-  host: localhost
+  database: <%= ENV["DATABASE_NAME"] %>_test
 
 production:
   <<: *default
-  database: task_management_system_production
-  host: task-management-system-production.c5jrui4evehn.us-east-1.rds.amazonaws.com
-  username: postgres
-  password: z!97g*t-DevJQu
-  port: 5432
+  database: <%= ENV["DATABASE_NAME"] %>_production
